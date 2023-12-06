@@ -34,6 +34,8 @@ THEN I am again presented with current and future conditions for that city
 ### Mock Up
 Screen shot of the main page:
 
+![weather dashboard main page](./Assets/images/main_screenshot.png)
+
 ## Installation/Execution
 https://vdunlop.github.io/weather-dashboard
 
