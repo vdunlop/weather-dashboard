@@ -1,0 +1,56 @@
+body {
+    border: grey solid;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Main header format. */
+h1 {
+    color: white;
+    background: linear-gradient(to right, rgba(0, 0, 255, 0.685), rgb(38, 38, 146));
+    text-align: center;
+    padding: 1rem;
+    margin: 0.5rem;
+}
+#main-container {
+    display:flex;
+    flex-direction: row;
+}
+#internal-container{
+    display:flex;
+    flex-direction:column;
+}
+#searchSection {
+    width: 30%;
+    display: block;
+    text-align: center;
+}
+
+#citySearch {
+    color: black;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+#cityText {
+    width: 100%;
+    padding: 0;
+}
+
+#searchBtn {
+    background: rgba(0, 85, 255, 0.563);
+    border: none;
+    display: block;
+    width: 100%;
+    padding: 0;
+    color: white;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+}
+#cityName {
+    border:grey solid;
+    border:1rem;
+}

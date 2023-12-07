@@ -11,10 +11,41 @@
 </head>
 
 <body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
 
+    <div id="main-container">
 
-    <script type="text/javascript" src="./assets/js/script.js"></script>
+        <!--City Search box and past searches-->
+        <section id="searchSection">
+            <div id="citySearch">Search for a City:</div>
+            <form>
+                <input type="text" id="cityText"></input>
+                <button id="searchBtn">Search</button>
+            </form>
+
+            <script type="text/javascript" src="./assets/js/script.js"></script>
+        </section>
+
+        <div id="internalContainer">
+
+        <!--City Name display with conditions: temp, wind, humidity -->    
+        <section id="cityName" style="display: inline">
+            <h2>City goes here</h2>
+            <ul>
+                <li id="temp">Temp: </li>
+                <li id="wind">Wind: </li>
+                <li id="humidity">Humidity: </li>
+            </ul>
+
+        <!--5-Day Forecast-->    
+        </section>
+        <p>This is the 5 day forecast here</p>
+        <section id="fiveDayForcast">
+        </section>
+    </div>
+
 </body>
+
 </html>
-
-
