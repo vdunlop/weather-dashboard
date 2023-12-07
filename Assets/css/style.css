@@ -3,6 +3,11 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+p {
+    font-size:larger;
+    font-weight: bolder;
+}
+
 /* Main header format. */
 h1 {
     color: white;
@@ -18,22 +23,28 @@ h1 {
 #internal-container{
     display:flex;
     flex-direction:column;
+    width:70%;
+ 
 }
 #searchSection {
     width: 30%;
     display: block;
-    text-align: center;
-}
-
-#citySearch {
-    color: black;
-    font-size: larger;
-    font-weight: bolder;
+    text-align: left;
 }
 
 #cityText {
     width: 100%;
-    padding: 0;
+    margin-left: 3 rem;
+}
+input {
+    width:100%;
+    margin-left:.5rem;
+    margin-right: .5rem;
+}
+#citySearch {
+    margin-left: .5rem;
+    font-size: larger;
+    font-weight: bolder;
 }
 
 /* search button format */
@@ -51,7 +62,29 @@ h1 {
     margin-left: .5rem;
     margin-right: .5rem;
 }
-#cityName {
-    border:grey solid;
-    border:1rem;
-}
+#cityName {  
+    border: solid grey;
+    font-size: larger;
+    font-weight:bolder;
+    /*padding-left: 3rem;
+    padding-right:3rem;*/
+    margin-left:3rem;
+    margin-right:1rem;
+    text-align: left;
+ }
+ #fiveDayForecast{
+    font-size: larger;
+    font-weight:bolder;
+    /*padding-left: 3rem;
+    padding-right:3rem;*/
+    margin-left:3rem;
+    margin-right:1rem;
+    text-align: left;
+ }
+ #weather-conditions {
+    list-style-type: none;
+    padding-left: 0;
+ }
+ #temp, #wind, #humidity {
+    padding-bottom: 1rem;
+ }

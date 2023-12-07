@@ -19,33 +19,36 @@
 
         <!--City Search box and past searches-->
         <section id="searchSection">
-            <div id="citySearch">Search for a City:</div>
-            <form>
+            <p id="citySearch">Search for a City:</p>
+            <form id="search-form">
                 <input type="text" id="cityText" name="Enter city"></input>
                 <button class="searchBtn">Search</button>
             </form>
 
-            <script type="text/javascript" src="./assets/js/script.js"></script>
         </section>
 
-        <div id="internalContainer">
+        <!--Internal container is for the current city weather conditions
+        and the 5 day forecast-->
+        <section id="internal-container">
 
-        <!--City Name display with conditions: temp, wind, humidity -->    
-        <section id="cityName" style="display: inline">
-            <h2>City goes here</h2>
-            <ul>
-                <li id="temp">Temp: </li>
-                <li id="wind">Wind: </li>
-                <li id="humidity">Humidity: </li>
-            </ul>
+            <!--City Name display with conditions: temp, wind, humidity -->
+            <div id="cityName">
+                <p>City goes here</p>
+                <ul id="weather-conditions">
+                    <li id="temp">Temp: </li>
+                    <li id="wind">Wind: </li>
+                    <li id="humidity">Humidity: </li>
+                </ul>
+            </div>
 
-        <!--5-Day Forecast-->    
-        </section>
-        <p>This is the 5 day forecast here</p>
-        <section id="fiveDayForcast">
+            <!--5-Day Forecast-->
+            <div id="fiveDayForecast">
+                <p>5-Day Forecast:</p>
+            </div>
         </section>
     </div>
-
+    <script type="text/javascript" src="./assets/js/script.js"></script>
+ 
 </body>
 
 </html>
