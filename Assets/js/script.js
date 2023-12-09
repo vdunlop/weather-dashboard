@@ -19,42 +19,43 @@ var cityTextEl = $("#cityText");
 $(document).ready(function () {
     //var searchBtn = document.querySelector("#search");
 
-    // Fetch the data from the openweathermap api. Input the string that was built that contains
-    // the lat and long of the city being searched.
-    /*fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=16e7da02b0d8eaa61b87bb1e395ca5cc', {
-        //  fetch(openWeatherMapURL,{
-    })
+    function getWeatherDatafromAPI(openWeatherMapURL) {
+        // Fetch the data from the openweathermap api. Input the string that was built that contains
+        // the lat and long of the city being searched.
+        fetch('https://api.openweathermap.org/data/2.5/weather?q=London&appid=16e7da02b0d8eaa61b87bb1e395ca5cc')
+            //  fetch(openWeatherMapURL,{
+            //process response - check for error response
+            .then(function (response) {
+                if (response.status !== STATUS_GOOD) {
+                    console.log("Fetch error: ", response.status);
+                    console.log(response);
+                    return ERROR;
+                }
+            })
 
-        //process response - check for error response
-        .then(function (response) {
-            if (response.status !== STATUS_GOOD) {
-                console.log("Fetch error: ", response.status);
-                console.log(response);
-                return ERROR;
-            }
-        })
+            //process data available from the fetch
+            .then(function (data) {
+                console.log(data);
+                debugger;
+                //populateCards();
+            });
+    };
 
-        //process data available from the fetch
-        .then(function (data) {
-            console.log(data);
-            //populateCards();
-        });*/
-    
-
-    function appendCitytoList(cityP){
-        $("#cityList").append("<li>"+cityP+"</li>");
+    function appendCitytoList(cityP) {
+        $("#cityList").append('<button class="listCityBtn">' + cityP + '</button>');
         return 0;
     }
+
     function formatWeatherBox(cityP) {
-        console.log(cityP);
-        debugger;
-        console.log($("div#cityName"));
- //       console.log($("div#cityName").children("p"));
- $("div#cityName").children("p").attr("textContent",cityP);
 
+        $("div#cityName").children("p").text(cityP);
+        $("li#temp").text("Temp: " + "temp here");
+        $("li#wind").text("Wind: " + "wind here");
+        $("li#humidity").text("Humidty: " + "humidity here");
         return 0;
     }
-    function formatFiveDayForecast(cityP){return 0;}
+
+    function formatFiveDayForecast(cityP) { return 0; }
     // Process City:
     // Append to list of cities searched for
     // Add to main weather box.
@@ -93,15 +94,38 @@ $(document).ready(function () {
 
         // Process that a city was entered.
         console.log(newCity);
-debugger;
+        debugger;
         processCity(newCity);
 
     }
 
-    // Event listener for the Search button clicked
+    // Search button clicked
     $('.searchBtn').click(function (e) {
         e.preventDefault();
         console.log("in button click");
         processSearch();
+    });
+
+    // When a city in the list is clicked
+    $('.listCityBtn').click(function (e) {
+        e.preventDefault();
+        console.log("in city button clicked");
+        // get hour that we clicked on
+        console.log(e);
+        /*var hourStr = this.previousElementSibling.previousElementSibling.innerText;
+        var hour = convertTo24HourFormat(hourStr);
+    
+        // convert hour to 24 hour clock format
+    
+        // get the data entered in textarea
+        // store in local storage and update our tasksArr to "emulate" local storage
+        var divText = "div#hour-" + hour;
+        var index = hour - MIN_HOUR;  // 9am is index 0, 10AM index 1, etc...
+    
+        tasksArr[index] = $(divText).children('textarea').val();
+        localStorage.setItem("taskList", JSON.stringify(tasksArr));
+    
+        // Turn on the Appointment Saved text
+        $('p#apptSaved').attr("style","display:block");*/
     });
 });
