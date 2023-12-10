@@ -57,7 +57,7 @@ $(document).ready(function () {
     // API call to get the latitude and longitude of a city
     // store it in local storage with the city
         function getLatandLong(apiURL) {
-        fetch('https://api.openweathermap.org/geo/1.0/direct?q=Bloomington&limit=1&appid=16e7da02b0d8eaa61b87bb1e395ca5cc')
+        /*fetch('https://api.openweathermap.org/geo/1.0/direct?q=Bloomington&limit=1&appid=16e7da02b0d8eaa61b87bb1e395ca5cc')
             //process response - check for error response
             .then(function (response) {
                 if (response.status !== 200) {
@@ -73,7 +73,7 @@ $(document).ready(function () {
                 console.log(data);
                 console.log(data[0].lat);
                 console.log(data[0].lon);
-            });
+            });*/
     }
 
     function processFiveDayForecast(apiURL) {
@@ -81,7 +81,7 @@ $(document).ready(function () {
         // the lat and long of the city being searched.
         //       fetch('https://api.openweathermap.org/data/2.5/weather?lat=44.84&lon=93.29&units=imperial&appid=16e7da02b0d8eaa61b87bb1e395ca5cc')
         //        //fetch('https://api.openweathermap.org/data/2.5/weather?lat=44.84&lon=93.29&appid=9151b72856ea5e674d9bdd5a39dd8f94')
-        fetch("https://api.openweathermap.org/data/2.5/forecast?lat=44.84&lon=-93.29&appid=16e7da02b0d8eaa61b87bb1e395ca5cc")
+        fetch("https://api.openweathermap.org/data/2.5/forecast?lat=44.84&lon=-93.29&units=imperial&appid=16e7da02b0d8eaa61b87bb1e395ca5cc")
             //process response - check for error response
             .then(function (response) {
                 if (response.status !== STATUS_GOOD) {
@@ -94,7 +94,17 @@ $(document).ready(function () {
 
             //process data available from the fetch
             .then(function (data) {
+
+                //format forecast day boxes
+
                 console.log(data);
+                console.log(data.list[0].main.temp);
+                console.log(data.list[0].wind.speed);//.wind);
+                console.log(data.list[0].main.humidity);
+                console.log(data.list[0].weather[0].description);//.description);
+                console.log(dayjs(data.list[0].dt_txt).format('M/D/YYYY'));
+
+
             });
     }
 
@@ -103,7 +113,8 @@ $(document).ready(function () {
     function formatWeatherBox() {
         console.log("in format weather box");
 
-        $("div#cityName").children("p").text(currentCity.name);
+        var today = dayjs();
+        $("div#cityName").children("p").text(currentCity.name + " " + today.format('M/D/YYYY'));
         $("li#temp").text("Temp: " + currentCity.temperature + " F");
         $("li#wind").text("Wind: " + currentCity.wind + " mph");
         $("li#humidity").text("Humidity: " + currentCity.humidity + "%");
@@ -170,11 +181,14 @@ $(document).ready(function () {
         }
         console.log(currentCity)
         // Add city to local storage
-        debugger;
+
         //Process the current weather
         errorRtn = processCurrentWeather();
 
         // Process the 5 day forecast
+        $("#fiveDayForecast").css("display","flex");
+
+        debugger;
         errorRtn = processFiveDayForecast();
 
     }
