@@ -103,6 +103,10 @@ $(document).ready(function () {
                 console.log(data.list[0].main.humidity);
                 console.log(data.list[0].weather[0].description);//.description);
                 console.log(dayjs(data.list[0].dt_txt).format('M/D/YYYY'));
+$("div#day-one").text(dayjs(data.list[0].dt_txt).format('M/D/YYYY'));                
+$("#day-one").append("<p>Temp: " + data.list[0].main.temp + " F");
+$("#day-one").append("<p>Wind: " + data.list[0].wind.speed + " mph");
+$("#day-one").append("<p>Temp: " + data.list[0].main.humidity + "%");
 
 
             });
@@ -203,7 +207,7 @@ $(document).ready(function () {
         var cityEntered = cityTextEl.val();
         if ((cityEntered == null) || (cityEntered == "")) {
             console.log("City not entered in Search click");
-            cityTextEl.val("Enter City");
+            //cityTextEl.val("Enter City");
             return ERROR;
         }
 
