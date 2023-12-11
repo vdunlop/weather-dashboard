@@ -110,13 +110,13 @@ $(document).ready(function () {
                 console.log(dayjs(data.list[0].dt_txt).format('M/D/YYYY'));*/
                 var currentDate = dayjs(data.list[0].dt_txt).format('M/D/YYYY');
                 var dataListIndex = 0; // points to the data that came back from the API call
-                var daysIndex = 0;  // points to the 5 day forecast day (1 through 5)
+                var daysIndex = 1;  // points to the 5 day forecast day (1 through 5) 
 
                 // set day one of the 5 day forecast
-                $("div#day-one").text(dayjs(data.list[daysIndex].dt_txt).format('M/D/YYYY'));
-                $("#day-one").append("<p>Temp: " + data.list[daysIndex].main.temp + " F");
-                $("#day-one").append("<p>Wind: " + data.list[daysIndex].wind.speed + " mph");
-                $("#day-one").append("<p>Temp: " + data.list[daysIndex].main.humidity + "%");
+                $("div#day-one").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
+                $("#day-one").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
+                $("#day-one").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " mph");
+                $("#day-one").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
 
                 // look for the next date in the API call data and store it in the 5 day forecast
                 var loopNotEnd = true;
@@ -134,25 +134,25 @@ $(document).ready(function () {
                         currentDate = nextDate;
                         daysIndex++;
                         switch (daysIndex) {
-                            case 2: $("div#day-two").text(dayjs(data.list[daysIndex].dt_txt).format('M/D/YYYY'));
-                                $("#day-two").append("<p>Temp: " + data.list[daysIndex].main.temp + " F");
-                                $("#day-two").append("<p>Wind: " + data.list[daysIndex].wind.speed + " mph");
-                                $("#day-two").append("<p>Temp: " + data.list[daysIndex].main.humidity + "%");
+                            case 2: $("div#day-two").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
+                                $("#day-two").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
+                                $("#day-two").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " mph");
+                                $("#day-two").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
-                            case 3: $("div#day-three").text(dayjs(data.list[daysIndex].dt_txt).format('M/D/YYYY'));
-                                $("#day-three").append("<p>Temp: " + data.list[daysIndex].main.temp + " F");
-                                $("#day-three").append("<p>Wind: " + data.list[daysIndex].wind.speed + " mph");
-                                $("#day-three").append("<p>Temp: " + data.list[daysIndex].main.humidity + "%");
+                            case 3: $("div#day-three").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
+                                $("#day-three").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
+                                $("#day-three").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " mph");
+                                $("#day-three").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
-                            case 4: $("div#day-four").text(dayjs(data.list[daysIndex].dt_txt).format('M/D/YYYY'));
-                                $("#day-four").append("<p>Temp: " + data.list[daysIndex].main.temp + " F");
-                                $("#day-four").append("<p>Wind: " + data.list[daysIndex].wind.speed + " mph");
-                                $("#day-four").append("<p>Temp: " + data.list[daysIndex].main.humidity + "%");
+                            case 4: $("div#day-four").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
+                                $("#day-four").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
+                                $("#day-four").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " mph");
+                                $("#day-four").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
-                            case 5: $("div#day-five").text(dayjs(data.list[daysIndex].dt_txt).format('M/D/YYYY'));
-                                $("#day-five").append("<p>Temp: " + data.list[daysIndex].main.temp + " F");
-                                $("#day-five").append("<p>Wind: " + data.list[daysIndex].wind.speed + " mph");
-                                $("#day-five").append("<p>Temp: " + data.list[daysIndex].main.humidity + "%");
+                            case 5: $("div#day-five").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
+                                $("#day-five").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
+                                $("#day-five").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " mph");
+                                $("#day-five").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
                             default:
                                 console.log("Error in ProcessFiveDayForecast switch");
@@ -161,7 +161,7 @@ $(document).ready(function () {
                     dataListIndex++;
 
                     // filled up all 5 forecast days, then we're done
-                    if (daysIndex === NUM_DAYS) {
+                    if (daysIndex >= NUM_DAYS) {
                         loopNotEnd = false;
                     }
                 }
@@ -211,7 +211,7 @@ $(document).ready(function () {
         debugger;
         // fetch current weather for lat and long (city) and format on screen
         errorRtn = processWeatherDatafromAPI(newAPIURL);
-        if (errorRtn == ERROR) {
+        if (errorRtn === ERROR) {
             console.log("Error return in processWeather");
             return;
         }
@@ -236,7 +236,9 @@ $(document).ready(function () {
     function appendCitytoList() {
         //console.log("in append");
         $("#cityList").append('<button class="listCityBtn">' + currentCity.name + '</button>');
-        return 0;
+        $("#cityList").append('<button class="listCityBtn">Honolulu</button>');
+
+    return 0;
     }
 
      // Process City:
@@ -249,7 +251,7 @@ $(document).ready(function () {
         var errorRtn = 0;
 
         errorRtn = appendCitytoList();
-        if (errorRtn == ERROR) {
+        if (errorRtn === ERROR) {
             return;
         }
         //console.log(currentCity)
@@ -296,12 +298,28 @@ $(document).ready(function () {
         processSearch();
     });
 
-    // When a city in the list is clicked
-    $('button.listCityBtn').click(function (e) {
-        e.preventDefault();
-        console.log("in city button clicked");
-        // get hour that we clicked on
+    $('#cityList').click(function(e){
+        console.log(this);
         console.log(e);
+        var cityClicked = e.target.textContent;
+        console.log(cityClicked);
+        // Clear last city
+        currentCity = {  // structure to hold all the details for one city for local storage
+            name: cityClicked,
+            latitude: "",
+            longitude: "",
+            temperature: "",
+            wind: "",
+            humidity: ""
+        };
+        processWeather();
+    });
+    // When a city in the list is clicked
+    //$('.listCityBtn').click(function (e) {
+    //    e.preventDefault();
+    //    console.log("in city button clicked");
+        // get button that we clicked on
+    //    console.log(e);
         /*var hourStr = this.previousElementSibling.previousElementSibling.innerText;
         var hour = convertTo24HourFormat(hourStr);
      
@@ -317,5 +335,5 @@ $(document).ready(function () {
      
         // Turn on the Appointment Saved text
         $('p#apptSaved').attr("style","display:block");*/
-    });
+    //});
 });
