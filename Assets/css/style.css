@@ -67,6 +67,7 @@ input {
     margin-left: .5rem;
     margin-right: .5rem;
 }
+
 .listCityBtn {
     background: rgba(0, 85, 255, 0.28);
     border: none;
@@ -92,6 +93,7 @@ input {
     margin-right: 1rem;
     text-align: left;
 }
+
 #fiveDayForecastHdr {
     font-size: larger;
     font-weight: bolder;
@@ -103,9 +105,9 @@ input {
 }
 
 #fiveDayForecast {
-    display:none;
+    display: none;
     justify-content: space-between;
-    align-items:center;
+    align-items: center;
     font-size: larger;
     font-weight: bolder;
     /*padding-left: 3rem;
@@ -129,12 +131,12 @@ input {
 
 .forecast {
     font-size: .75rem;
-    font-weight:normal ;
+    font-weight: normal;
     height: 20rem;
     color: white;
     background-color: rgba(37, 37, 97, 0.879);
     width: 20%;
-    margin-top:1rem;
+    margin-top: 1rem;
     margin-bottom: 1rem;
     margin-left: .5rem;
     margin-right: .5rem;

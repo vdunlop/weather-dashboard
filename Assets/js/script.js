@@ -32,8 +32,8 @@ $(document).ready(function () {
     function processWeatherDatafromAPI(coords) {
         // Fetch the data from the openweathermap api. Input the string that was built that contains
         // the lat and long of the city being searched.
-        var longitude = "lon=" + coords.lon;   
-        var latitude = "lat=" + coords.lat;   
+        var longitude = "lon=" + coords.lon;
+        var latitude = "lat=" + coords.lat;
         var apiURL = "https://api.openweathermap.org/data/2.5/weather?" + latitude + "&" + longitude + "&units=imperial&" + "appid=16e7da02b0d8eaa61b87bb1e395ca5cc";
         fetch(apiURL)
             //process response - check for error response
@@ -59,8 +59,8 @@ $(document).ready(function () {
     // API call to get the latitude and longitude of a city
     // store it in local storage with the city
     function getLatandLong(location) {
-     var apiURL = 'https://geocode.maps.co/search?q=' + location;
-        
+        var apiURL = 'https://geocode.maps.co/search?q=' + location;
+
         return fetch(apiURL)
             //process response - check for error response
             .then(function (response) {
@@ -86,9 +86,6 @@ $(document).ready(function () {
     function processFiveDayForecast(coords) {
         // Fetch the data from the openweathermap api. Input the string that was built that contains
         // the lat and long of the city being searched.
-        //       fetch('https://api.openweathermap.org/data/2.5/weather?lat=44.84&lon=93.29&units=imperial&appid=16e7da02b0d8eaa61b87bb1e395ca5cc')
-        //        //fetch('https://api.openweathermap.org/data/2.5/weather?lat=44.84&lon=93.29&appid=9151b72856ea5e674d9bdd5a39dd8f94')
-        //fetch("https://api.openweathermap.org/data/2.5/forecast?lat=44.84&lon=-93.29&units=imperial&appid=16e7da02b0d8eaa61b87bb1e395ca5cc")
         var longitude = "lon=" + coords.lon;
         var latitude = "lat=" + coords.lat;
         var apiURL = "https://api.openweathermap.org/data/2.5/forecast?" + latitude + "&" + longitude + "&units=imperial&" + "appid=16e7da02b0d8eaa61b87bb1e395ca5cc";
@@ -106,15 +103,6 @@ $(document).ready(function () {
             //process data available from the fetch
             .then(function (data) {
 
-                //format forecast day boxes
-                /*
-                                console.log(data);
-                                console.log(data.list[0].main.temp);
-                                console.log(data.list[0].wind.speed);//.wind);
-                                console.log(data.list[0].main.humidity);
-                                console.log(data.list[0].weather[0].description);//.description);
-                                console.log(data.list[0].weather[0].icon); 
-                                console.log(dayjs(data.list[0].dt_txt).format('M/D/YYYY'));*/
                 console.log(data.list[0].weather[0].icon);
 
                 var currentDate = dayjs(data.list[0].dt_txt).format('M/D/YYYY');
@@ -126,14 +114,13 @@ $(document).ready(function () {
 
                 // get the weather icon image and append
                 var weatherCode = data.list[dataListIndex].weather[0].icon;
-                weatherCode = weatherCode.replace("n","d");
+                weatherCode = weatherCode.replace("n", "d");
                 var weatherImageURL = WEATHER_ICON + weatherCode + WEATHER_ICON_END;
                 var weatherImageHtml = '<img src="' + weatherImageURL + '" alt="" />';
                 console.log(weatherCode);
                 console.log(weatherImageHtml);
                 console.log(weatherImageURL);
                 $("#day-one").append(weatherImageHtml);
-                //$("div#day-one").append("<p>" + data.list[dataListIndex].weather[0].icon);
 
                 // append temp, speed, humidity
                 $("#day-one").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
@@ -145,11 +132,6 @@ $(document).ready(function () {
                 while (loopNotEnd) {
                     dataListIndex++;  // next API return
                     nextDate = dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY');  // next date in the API return
-                    //console.log(nextDate);
-                    //console.log(currentDate);
-                    //console.log(dataListIndex);
-                    //console.log(loopNotEnd);
-                    //console.log(daysIndex);
 
                     // new date, then put the data in there
                     if (currentDate < nextDate) {
@@ -157,7 +139,7 @@ $(document).ready(function () {
                         daysIndex++;
                         // get next weather icon
                         weatherCode = data.list[dataListIndex].weather[0].icon;
-                        weatherCode = weatherCode.replace("n","d");
+                        weatherCode = weatherCode.replace("n", "d");
                         weatherImageURL = WEATHER_ICON + weatherCode + WEATHER_ICON_END;
                         weatherImageHtml = '<img src="' + weatherImageURL + '" alt="" />';
 
@@ -169,19 +151,19 @@ $(document).ready(function () {
                                 $("#day-two").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
                             case 3: $("#day-three").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
-                            $("#day-three").prepend(weatherImageHtml);
+                                $("#day-three").prepend(weatherImageHtml);
                                 $("#day-three").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
                                 $("#day-three").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " MPH");
                                 $("#day-three").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
                             case 4: $("#day-four").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
-                            $("#day-four").prepend(weatherImageHtml);
+                                $("#day-four").prepend(weatherImageHtml);
                                 $("#day-four").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
                                 $("#day-four").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " MPH");
                                 $("#day-four").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
                             case 5: $("#day-five").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
-                            $("#day-five").prepend(weatherImageHtml);
+                                $("#day-five").prepend(weatherImageHtml);
                                 $("#day-five").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
                                 $("#day-five").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " MPH");
                                 $("#day-five").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
@@ -201,7 +183,7 @@ $(document).ready(function () {
             });
     }
 
-     // Format the current weather box
+    // Format the current weather box
     function formatWeatherBox() {
         //console.log("in format weather box");
         console.log(currentCity);
@@ -213,10 +195,6 @@ $(document).ready(function () {
         $("li#temp").text("Temp: " + currentCity.temperature + " F");
         $("li#wind").text("Wind: " + currentCity.wind + " MPH");
         $("li#humidity").text("Humidity: " + currentCity.humidity + "%");
-
-
-        //console.log("currentcity");
-        //console.log(currentCity);
         return 0;
     }
 
@@ -227,48 +205,20 @@ $(document).ready(function () {
     function processWeather() {
         console.log("in process current weather");
         // Get latitude and longitude for our API call for weather
-        debugger;
-        getLatandLong(currentCity.name).then(function(coords){
+        getLatandLong(currentCity.name).then(function (coords) {
             processWeatherDatafromAPI(coords);
             processFiveDayForecast(coords);
-        } );
+        });
         console.log("currentcity");
         console.log(currentCity);
-        debugger;
-
-        // format the URL to get the weather
-        //var latitude = "lat=" + currentCity.latitude;
-        //var longitude = "lat=" + currentCity.longitude;
- 
-        /*console.log("in process current weather");
-        console.log(newAPIURL);
-        debugger;
-        // fetch current weather for lat and long (city) and format on screen
-        errorRtn = processWeatherDatafromAPI(newAPIURL);
-        if (errorRtn === ERROR) {
-            console.log("Error return in processWeather");
-            return;
-        }*/
 
         // Process the 5 day forecast
         $("#fiveDayForecast").css("display", "flex");
-
-        debugger;
-        // format the URL to get the 5 day forecast
-        //var latitude = "lat=" + currentCity.latitude;
-        //var longitude = "lat=" + currentCity.longitude;
-
-        console.log(newAPIURL);
-        //errorRtn = processFiveDayForecast(newAPIURL);
-
     }
 
     // Append to list of cities searched for
     function appendCitytoList() {
-        //console.log("in append");
         $("#cityList").append('<button class="listCityBtn">' + currentCity.name + '</button>');
-        //$("#cityList").append('<button class="listCityBtn">Honolulu</button>');
-
         return 0;
     }
 
@@ -285,7 +235,7 @@ $(document).ready(function () {
         if (errorRtn === ERROR) {
             return;
         }
-        //console.log(currentCity)
+
         // Add city to local storage
 
         //Process the current weather
@@ -303,7 +253,6 @@ $(document).ready(function () {
         var cityEntered = cityTextEl.val();
         if ((cityEntered == null) || (cityEntered == "")) {
             console.log("City not entered in Search click");
-            //cityTextEl.val("Enter City");
             return ERROR;
         }
 
@@ -318,7 +267,6 @@ $(document).ready(function () {
             weatherImage: ""
         };
         // Process the city that was entered.
-        //console.log(currentCity);
         processCity();
     }
 
@@ -347,26 +295,4 @@ $(document).ready(function () {
         };
         processWeather();
     });
-    // When a city in the list is clicked
-    //$('.listCityBtn').click(function (e) {
-    //    e.preventDefault();
-    //    console.log("in city button clicked");
-    // get button that we clicked on
-    //    console.log(e);
-    /*var hourStr = this.previousElementSibling.previousElementSibling.innerText;
-    var hour = convertTo24HourFormat(hourStr);
- 
-    // convert hour to 24 hour clock format
- 
-    // get the data entered in textarea
-    // store in local storage and update our tasksArr to "emulate" local storage
-    var divText = "div#hour-" + hour;
-    var index = hour - MIN_HOUR;  // 9am is index 0, 10AM index 1, etc...
- 
-    tasksArr[index] = $(divText).children('textarea').val();
-    localStorage.setItem("taskList", JSON.stringify(tasksArr));
- 
-    // Turn on the Appointment Saved text
-    $('p#apptSaved').attr("style","display:block");*/
-    //});
 });
