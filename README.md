@@ -60,7 +60,7 @@ The Weather Dashboard can be used for several purposes:
 
 ## Credits
 
-N/A
+Office hours with Byron to learn how to daisychain API fetches.
 
 ## License
 
