@@ -1,8 +1,8 @@
 # weather-dashboard
-This dashboard will show the 5 day weather forecast from the city the user chooses.
+This dashboard will show the current weather as well as the 5-day forecast for the city the user chooses.
 
 ## Description
-The weather dashboard will:
+The weather dashboard will accept a city as input. When the user clicks the Search button, the city's current weather will display, along with a 5-Day forecast. That city will be added to a list of past searches so that the user can click on a past search to bring up that city's weather again.
 
 ## User Story
 AS A traveler
@@ -39,9 +39,28 @@ Screen shot of the main page:
 ## Installation/Execution
 https://vdunlop.github.io/weather-dashboard
 
+Execute by going to the above URL. You will be brought to a screen with an input box and Search button.
+
+Enter the city, state (abbreviated) that you would like to see weather information on.
+
+Your search will be saved in a list below the Search button.
+
+The current weather will be displayed in a box on the right side of the screen.
+
+The 5-Day forecast will be displayed below the current weather.
+
+At this time, the user can click on one of the existing cities that have been searched for, or can enter a new search.
+
 ## Usage
+The Weather Dashboard can be used for several purposes:
+
+1. An easy way to look up the weather for a city. You will receive current weather and a 5-Day forecast.
+
+2. An easy way to look up the weather for several cities. By searching for a city, you will see the current weather and 5-Day forecast, and then be able to click on past cities that you have searched for. This makes for an easy way to compare weather in many cities if, for example, you are scheduling a trip and want to know what order to visit the sites in.
 
 ## Credits
+
+N/A
 
 ## License
 

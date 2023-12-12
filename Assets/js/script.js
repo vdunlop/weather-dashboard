@@ -29,12 +29,12 @@ var cityLS = JSON.parse(localStorage.getItem('cityList'));
 $(document).ready(function () {
 
     // The API calls
-    function processWeatherDatafromAPI(apiURL) {
+    function processWeatherDatafromAPI(coords) {
         // Fetch the data from the openweathermap api. Input the string that was built that contains
         // the lat and long of the city being searched.
-        //       fetch('https://api.openweathermap.org/data/2.5/weather?lat=44.84&lon=93.29&units=imperial&appid=16e7da02b0d8eaa61b87bb1e395ca5cc')
-        //        //fetch('https://api.openweathermap.org/data/2.5/weather?lat=44.84&lon=93.29&appid=9151b72856ea5e674d9bdd5a39dd8f94')
-        console.log(apiURL);
+        var longitude = "lon=" + coords.lon;   
+        var latitude = "lat=" + coords.lat;   
+        var apiURL = "https://api.openweathermap.org/data/2.5/weather?" + latitude + "&" + longitude + "&units=imperial&" + "appid=16e7da02b0d8eaa61b87bb1e395ca5cc";
         fetch(apiURL)
             //process response - check for error response
             .then(function (response) {
@@ -58,11 +58,10 @@ $(document).ready(function () {
 
     // API call to get the latitude and longitude of a city
     // store it in local storage with the city
-    function getLatandLong(apiURL) {
-        /*console.log(apiURL);
-        //fetch('https://api.openweathermap.org/geo/1.0/direct?q=Bloomington&limit=1&appid=16e7da02b0d8eaa61b87bb1e395ca5cc')
-        //fetch('https://geocode.maps.co/search?q=bloomington')
-        fetch(apiURL)
+    function getLatandLong(location) {
+     var apiURL = 'https://geocode.maps.co/search?q=' + location;
+        
+        return fetch(apiURL)
             //process response - check for error response
             .then(function (response) {
                 if (response.status !== STATUS_GOOD) {
@@ -80,23 +79,26 @@ $(document).ready(function () {
                 //console.log(data[0].lon);
                 currentCity.latitude = data[0].lat;
                 currentCity.longitude = data[0].lon;
-            });*/
+                return data[0];
+            });
     }
 
-    function processFiveDayForecast(apiURL) {
-        console.log(apiURL);
+    function processFiveDayForecast(coords) {
         // Fetch the data from the openweathermap api. Input the string that was built that contains
         // the lat and long of the city being searched.
         //       fetch('https://api.openweathermap.org/data/2.5/weather?lat=44.84&lon=93.29&units=imperial&appid=16e7da02b0d8eaa61b87bb1e395ca5cc')
         //        //fetch('https://api.openweathermap.org/data/2.5/weather?lat=44.84&lon=93.29&appid=9151b72856ea5e674d9bdd5a39dd8f94')
         //fetch("https://api.openweathermap.org/data/2.5/forecast?lat=44.84&lon=-93.29&units=imperial&appid=16e7da02b0d8eaa61b87bb1e395ca5cc")
+        var longitude = "lon=" + coords.lon;
+        var latitude = "lat=" + coords.lat;
+        var apiURL = "https://api.openweathermap.org/data/2.5/forecast?" + latitude + "&" + longitude + "&units=imperial&" + "appid=16e7da02b0d8eaa61b87bb1e395ca5cc";
+
         fetch(apiURL)
             //process response - check for error response
             .then(function (response) {
-                if (response.status !== STATUS_GOOD) {
-                    console.log("Fetch error: " + response.status);
-                    console.log(response);
-                    return response.json();
+                if (!response.ok) {
+                    console.error("Fetch error: " + response.status);
+                    console.error(response);
                 }
                 return response.json();
             })
@@ -130,12 +132,12 @@ $(document).ready(function () {
                 console.log(weatherCode);
                 console.log(weatherImageHtml);
                 console.log(weatherImageURL);
-                $("#day-one").prepend(weatherImageHtml);
+                $("#day-one").append(weatherImageHtml);
                 //$("div#day-one").append("<p>" + data.list[dataListIndex].weather[0].icon);
 
                 // append temp, speed, humidity
                 $("#day-one").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
-                $("#day-one").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " mph");
+                $("#day-one").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " MPH");
                 $("#day-one").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
 
                 // look for the next date in the API call data and store it in the 5 day forecast
@@ -163,25 +165,25 @@ $(document).ready(function () {
                             case 2: $("#day-two").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
                                 $("#day-two").prepend(weatherImageHtml);
                                 $("#day-two").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
-                                $("#day-two").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " mph");
+                                $("#day-two").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " MPH");
                                 $("#day-two").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
                             case 3: $("#day-three").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
                             $("#day-three").prepend(weatherImageHtml);
                                 $("#day-three").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
-                                $("#day-three").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " mph");
+                                $("#day-three").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " MPH");
                                 $("#day-three").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
                             case 4: $("#day-four").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
                             $("#day-four").prepend(weatherImageHtml);
                                 $("#day-four").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
-                                $("#day-four").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " mph");
+                                $("#day-four").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " MPH");
                                 $("#day-four").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
                             case 5: $("#day-five").text(dayjs(data.list[dataListIndex].dt_txt).format('M/D/YYYY'));
                             $("#day-five").prepend(weatherImageHtml);
                                 $("#day-five").append("<p>Temp: " + data.list[dataListIndex].main.temp + " F");
-                                $("#day-five").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " mph");
+                                $("#day-five").append("<p>Wind: " + data.list[dataListIndex].wind.speed + " MPH");
                                 $("#day-five").append("<p>Temp: " + data.list[dataListIndex].main.humidity + "%");
                                 break;
                             default:
@@ -209,7 +211,7 @@ $(document).ready(function () {
         $("div#cityName").children("p").text(currentCity.name + " " + today.format('M/D/YYYY'));
         $("img.weatherImage").attr('src', weatherImageURL);
         $("li#temp").text("Temp: " + currentCity.temperature + " F");
-        $("li#wind").text("Wind: " + currentCity.wind + " mph");
+        $("li#wind").text("Wind: " + currentCity.wind + " MPH");
         $("li#humidity").text("Humidity: " + currentCity.humidity + "%");
 
 
@@ -226,8 +228,10 @@ $(document).ready(function () {
         console.log("in process current weather");
         // Get latitude and longitude for our API call for weather
         debugger;
-        var latLongAPI = 'http://geocode.maps.co/search?q=' + currentCity.name;
-        getLatandLong(latLongAPI);
+        getLatandLong(currentCity.name).then(function(coords){
+            processWeatherDatafromAPI(coords);
+            processFiveDayForecast(coords);
+        } );
         console.log("currentcity");
         console.log(currentCity);
         debugger;
@@ -235,11 +239,8 @@ $(document).ready(function () {
         // format the URL to get the weather
         //var latitude = "lat=" + currentCity.latitude;
         //var longitude = "lat=" + currentCity.longitude;
-        var longitude = "lon=" + "-93.29";
-        var latitude = "lat=" + "44.84";
-        var newAPIURL = "https://api.openweathermap.org/data/2.5/weather?" + latitude + "&" + longitude + "&units=imperial&" + "appid=16e7da02b0d8eaa61b87bb1e395ca5cc";
-
-        console.log("in process current weather");
+ 
+        /*console.log("in process current weather");
         console.log(newAPIURL);
         debugger;
         // fetch current weather for lat and long (city) and format on screen
@@ -247,7 +248,7 @@ $(document).ready(function () {
         if (errorRtn === ERROR) {
             console.log("Error return in processWeather");
             return;
-        }
+        }*/
 
         // Process the 5 day forecast
         $("#fiveDayForecast").css("display", "flex");
@@ -256,12 +257,9 @@ $(document).ready(function () {
         // format the URL to get the 5 day forecast
         //var latitude = "lat=" + currentCity.latitude;
         //var longitude = "lat=" + currentCity.longitude;
-        var longitude = "lon=" + "-93.29";
-        var latitude = "lat=" + "44.84";
-        var newAPIURL = "https://api.openweathermap.org/data/2.5/forecast?" + latitude + "&" + longitude + "&units=imperial&" + "appid=16e7da02b0d8eaa61b87bb1e395ca5cc";
 
         console.log(newAPIURL);
-        errorRtn = processFiveDayForecast(newAPIURL);
+        //errorRtn = processFiveDayForecast(newAPIURL);
 
     }
 
